@@ -4,32 +4,162 @@
   <meta charset="UTF-8">
   <title>Healthy Break Reminder</title>
   <style>
-    body { font-family: Arial; padding: 15px; width: 250px; background: #f9f9f9; }
-    h2 { text-align: center; color: #2c3e50; }
-    label { display: block; margin-top: 10px; }
-    select, input { width: 100%; padding: 5px; margin-top: 5px; }
-    button { width: 100%; padding: 10px; margin-top: 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; }
-    button:hover { background: #16a085; cursor: pointer; }
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #9CA3AF;
+      --text: #E5E7EB;
+      --accent: #10B981;
+      --accent-600: #059669;
+      --ring: rgba(16,185,129,0.35);
+    }
+    
+    :root.light-theme {
+      --bg: #F9FAFB;
+      --card: #FFFFFF;
+      --muted: #6B7280;
+      --text: #111827;
+      --accent: #10B981;
+      --accent-600: #059669;
+      --ring: rgba(16,185,129,0.25);
+    }
+    
+    .theme-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 20px;
+    }
+    
+    :root.light-theme .theme-toggle {
+      background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    :root.light-theme .theme-toggle:hover {
+      background: rgba(0,0,0,0.08);
+    }
+    
+    .theme-toggle span {
+      font-size: 14px;
+      line-height: 1;
+      user-select: none;
+    }
+    body { 
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      margin: 0; padding: 16px; width: 320px; background: var(--bg); color: var(--text);
+      position: relative;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)) , var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    
+    :root.light-theme .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,1));
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .header { text-align: center; margin-bottom: 8px; }
+    .title { font-weight: 700; letter-spacing: .2px; }
+    .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+    .field { margin-top: 12px; }
+    .label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
+    .label .emoji { font-size: 16px; }
+    .input-wrap { 
+      margin-top: 6px; display: flex; align-items: center; gap: 6px; 
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); 
+      padding: 8px 10px; border-radius: 8px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    
+    :root.light-theme .input-wrap {
+      background: rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .input-wrap:focus-within { outline: 2px solid var(--ring); outline-offset: 1px; }
+    input {
+      flex: 1; width: 100%; background: transparent; border: none; color: var(--text);
+      font-size: 14px; appearance: textfield; 
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .suffix { color: var(--muted); font-size: 12px; }
+
+    .actions { margin-top: 16px; }
+    button { 
+      width: 100%; padding: 10px 12px; background: var(--accent); color: white; 
+      border: none; border-radius: 8px; font-weight: 600; letter-spacing: .2px;
+    }
+    button:hover { background: var(--accent-600); cursor: pointer; }
+    #status { text-align:center; color: #34D399; font-size: 12px; margin-top: 10px; min-height: 16px; }
   </style>
 </head>
 <body>
-  <h2>Healthy Breaks</h2>
+  <div class="theme-toggle" id="themeToggle" title="Toggle theme">
+    <span id="themeIcon">🌙</span>
+  </div>
   
-  <label>💧 Water Break (mins)</label>
-  <input id="water" type="number" min="5" value="30">
+  <div class="card">
+    <div class="header">
+      <div class="title">Healthy Breaks</div>
+      <div class="subtitle">Set how often you want to be reminded</div>
+    </div>
 
-  <label>🚶‍♂️ Walk Break (mins)</label>
-  <input id="walk" type="number" min="10" value="60">
+    <div class="field">
+      <div class="label"><span class="emoji">💧</span> Water Break</div>
+      <div class="input-wrap">
+        <input id="water" type="number" min="5" value="30" aria-label="Water break interval in minutes">
+        <span class="suffix">mins</span>
+      </div>
+    </div>
 
-  <label>👀 Eye Rest (mins)</label>
-  <input id="eye" type="number" min="5" value="20">
+    <div class="field">
+      <div class="label"><span class="emoji">🚶‍♂️</span> Walk Break</div>
+      <div class="input-wrap">
+        <input id="walk" type="number" min="10" value="60" aria-label="Walk break interval in minutes">
+        <span class="suffix">mins</span>
+      </div>
+    </div>
 
-  <label>🧘 Move Break (mins)</label>
-  <input id="move" type="number" min="15" value="45">
+    <div class="field">
+      <div class="label"><span class="emoji">👀</span> Eye Rest</div>
+      <div class="input-wrap">
+        <input id="eye" type="number" min="5" value="20" aria-label="Eye rest interval in minutes">
+        <span class="suffix">mins</span>
+      </div>
+    </div>
 
-  <button id="save">Save Reminders</button>
+    <div class="field">
+      <div class="label"><span class="emoji">🧘</span> Move Break</div>
+      <div class="input-wrap">
+        <input id="move" type="number" min="15" value="45" aria-label="Move break interval in minutes">
+        <span class="suffix">mins</span>
+      </div>
+    </div>
 
-  <p id="status" style="text-align:center; color:green;"></p>
+    <div class="actions">
+      <button id="save">Save Reminders</button>
+      <p id="status"></p>
+    </div>
+  </div>
 
   <script src="popup.js"></script>
 </body>

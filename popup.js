@@ -16,8 +16,44 @@ function loadSavedValues() {
   });
 }
 
-// Load values when popup opens
+// Theme toggle functionality
+function loadTheme() {
+  chrome.storage.sync.get(['theme'], (result) => {
+    const theme = result.theme || 'dark';
+    applyTheme(theme);
+  });
+}
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  const themeIcon = document.getElementById('themeIcon');
+  
+  if (theme === 'light') {
+    root.classList.add('light-theme');
+    themeIcon.textContent = '☀️';
+  } else {
+    root.classList.remove('light-theme');
+    themeIcon.textContent = '🌙';
+  }
+}
+
+function toggleTheme() {
+  chrome.storage.sync.get(['theme'], (result) => {
+    const currentTheme = result.theme || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    chrome.storage.sync.set({ theme: newTheme }, () => {
+      applyTheme(newTheme);
+    });
+  });
+}
+
+// Load values and theme when popup opens
 loadSavedValues();
+loadTheme();
+
+// Theme toggle button
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
 // Save button click handler
 document.getElementById('save').addEventListener('click', () => {
