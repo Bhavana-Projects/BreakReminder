@@ -1,9 +1,0 @@
-<html>
-<head><title>Pixels</title></head>
-<body>
-<script>if("browsingTopics"in document&&document.featurePolicy.allowsFeature("browsing-topics"))document.browsingTopics()</script>
-
-<img src="https://cm.g.doubleclick.net/pixel?google_nid=openx&google_hm=NmJhZGJkNjgtYjA4Yy0yNmE4LWU4OTgtYzg0MTdjMDE5NzE3"><img src="https://rtb.openx.net/sync/dds"><img src="https://cs.nex8.net/cs/openx"><img src="https://pr-bh.ybp.yahoo.com/sync/openx/d30508e6-e957-ea45-ccaf-840d49b4943e?gdpr=0"><img src="https://sync.srv.stackadapt.com/sync?nid=268"><img src="https://dps.jp.cinarra.com/pxd?PLATFORM_ID=1&USER_ID=2170f3a2-672e-8240-f770-20ac257fe689"><img src="https://tr.blismedia.com/v1/api/sync/openx">
-
-</body>
-</html>
