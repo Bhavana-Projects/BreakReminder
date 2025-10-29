@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Healthy Break Reminder</title>
+  <style>
+    body { font-family: Arial; padding: 15px; width: 250px; background: #f9f9f9; }
+    h2 { text-align: center; color: #2c3e50; }
+    label { display: block; margin-top: 10px; }
+    select, input { width: 100%; padding: 5px; margin-top: 5px; }
+    button { width: 100%; padding: 10px; margin-top: 15px; background: #1abc9c; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #16a085; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Healthy Breaks</h2>
+  
+  <label>💧 Water Break (mins)</label>
+  <input id="water" type="number" min="5" value="30">
+
+  <label>🚶‍♂️ Walk Break (mins)</label>
+  <input id="walk" type="number" min="10" value="60">
+
+  <label>👀 Eye Rest (mins)</label>
+  <input id="eye" type="number" min="5" value="20">
+
+  <label>🧘 Move Break (mins)</label>
+  <input id="move" type="number" min="15" value="45">
+
+  <button id="save">Save Reminders</button>
+
+  <p id="status" style="text-align:center; color:green;"></p>
+
+  <script src="popup.js"></script>
+</body>
+</html>
