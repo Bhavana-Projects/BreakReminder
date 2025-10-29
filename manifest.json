@@ -3,7 +3,7 @@
   "name": "Healthy Break Reminder",
   "description": "Get smart reminders to drink water, walk, move, and rest your eyes!",
   "version": "1.0",
-  "permissions": ["notifications", "storage", "alarms"],
+  "permissions": ["notifications", "storage", "alarms", "offscreen"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -17,5 +17,11 @@
   "icons": {
     "48": "icon48.png",
     "128": "icon128.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["Ringtones/*.mp3", "offscreen.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
